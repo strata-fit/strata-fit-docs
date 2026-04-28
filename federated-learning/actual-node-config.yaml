@@ -1,0 +1,58 @@
+# The following settings (encryption) should already be in place, as they
+# should've been automatically added when you ran `v6 node create-private-key`
+encryption:
+  enabled: true
+  private_key: "/path/to/where/your/private/key.is"
+
+# For now (test run) we'll only work with the fake data we asked you to generate earlier [TODO]
+databases:
+  # Do not change this label, we all must agree on the same labels.
+  - label: 'dataset_202504'
+    type: 'csv'
+    uri: '/path/to/strata-fit/data.csv'
+    # If your node is NOT running a Linux machine, you should probably comment the line below
+    # or (equivalently) set it to "mount_mode: copy"
+    # More info: https://github.com/vantage6/vantage6/issues/2532
+    mount_mode: ro
+
+policies:
+  # This controls which algorithms are allowed to run on your node. You should
+  # only allow algorithms you trust
+  allowed_algorithms:
+  #
+  # We'd prefer if you allowed all these versions, in case we experience crashes with later ones, we can consider using older versions of the algorithm:
+  #
+
+    # v0.1.1
+    - ^ghcr\.io/strata-fit/strata-fit-data-val@sha256:c3858960054f5d2a6968c51b439fc2d9fbf7830dde1392f2875e95abe522d122$
+    # v0.1.2
+    - ^ghcr\.io/strata-fit/strata-fit-data-val@sha256:7f77dc795b0504d3d2944c157d948c4054ad2066961c018b23e72568f255cc02$
+    # v0.1.3
+    - ^ghcr\.io/strata-fit/strata-fit-data-val@sha256:a63a9125b5e662c95a8e6699dd8056ea9d3f7eaaa96577e9700876e79714b3ef$
+
+
+    - ^ghcr\.io/mdw-nl/strata-fit-v6-stats-py@sha256:f87dea9701290ddc1599fcedda36595b4a5f4e9715bec69d2ef6e6eb1c4d5157$
+    - ^ghcr\.io/strata-fit/strata-fit-v6-km-py@sha256:67e5b5512f7eb8b99f592e32303884d32e2ea56a5b7c270f8f8f62a672b6b59a$
+    
+
+
+images:
+  # https://github.com/mdw-nl/vantage6/releases/tag/release-mdw%2Fv4.14.0-rc5
+  node: ghcr.io/mdw-nl/vantage6/infrastructure/node-lite@sha256:79d194a69a7a8cd6aa355e15142697a0c4f779ba6773eccbd02fcfa5ac12afd5
+
+# We don't want the node reading the headers of our "databases" and sending it
+# to the server
+share_config: false
+
+# We don't want to send algorithm logs to the server, in case algorithm errors
+# print out real data values
+share_algorithm_logs: false
+
+# We will (try to) use experimental run context feature
+# More info: https://github.com/orgs/vantage6/discussions/2556
+run_context_file: true
+
+# We don't need to share cpu/mem/etc metrics from the node
+# (this should be the default, however)
+prometheus:
+  enabled: false
