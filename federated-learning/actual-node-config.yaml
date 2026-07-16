@@ -41,6 +41,8 @@ policies:
     - ^ghcr\.io/strata-fit/strata-fit-v6-fed-statistics-py@sha256:df98bbe6dba591c5fa1833e1d95cf5c36f117c053887123b6adcde41d0c47e63$
     # KM legacy image
     - ^ghcr\.io/strata-fit/strata-fit-v6-km-py@sha256:67e5b5512f7eb8b99f592e32303884d32e2ea56a5b7c270f8f8f62a672b6b59a$
+    # Meta-Algo Imputation and KM 
+    - ^ghcr\.io/strata-fit/strata-fit-v6-meta-algo-py@sha256:b8c6d32ce8762ba75b8ad5bd38509950b726def9ca346b50c13720e156c24400$
     
 
 
